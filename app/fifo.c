@@ -1,0 +1,47 @@
+#include "conf_app.h"
+#include "fifo.h"
+
+static struct {
+	struct fifo_item fifo[FIFO_SIZE];
+	uint8_t count;
+	uint8_t read_idx;
+	uint8_t write_idx;
+} self;
+
+uint8_t fifo_count(void)
+{
+	return self.count;
+}
+
+void fifo_flush(void)
+{
+	self.write_idx = 0;
+	self.read_idx = 0;
+	self.count = 0;
+}
+
+bool fifo_enqueue(const struct fifo_item item)
+{
+	if (self.count >= FIFO_SIZE)
+		return false;
+
+	self.fifo[self.write_idx++] = item;
+
+	self.write_idx %= FIFO_SIZE;
+	++self.count;
+
+	return true;
+}
+
+struct fifo_item fifo_dequeue(void)
+{
+	struct fifo_item item = { 0 };
+	if (self.count == 0)
+		return item;
+
+	item = self.fifo[self.read_idx++];
+	self.read_idx %= FIFO_SIZE;
+	--self.count;
+
+	return item;
+}
