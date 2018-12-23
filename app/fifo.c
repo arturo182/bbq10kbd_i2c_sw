@@ -33,6 +33,18 @@ bool fifo_enqueue(const struct fifo_item item)
 	return true;
 }
 
+void fifo_enqueue_force(const struct fifo_item item)
+{
+	if (fifo_enqueue(item))
+		return;
+
+	self.fifo[self.write_idx++] = item;
+	self.write_idx %= FIFO_SIZE;
+
+	self.read_idx++;
+	self.read_idx %= FIFO_SIZE;
+}
+
 struct fifo_item fifo_dequeue(void)
 {
 	struct fifo_item item = { 0 };

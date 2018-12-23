@@ -24,7 +24,7 @@ void reg_set_bit(enum reg_id reg, uint8_t bit)
 
 void reg_init(void)
 {
-	regs[REG_ID_CFG] = CFG_KEY_INT;
+	regs[REG_ID_CFG] = CFG_OVERFLOW_INT | CFG_KEY_INT;
 	regs[REG_ID_DEB] = 10;
 	regs[REG_ID_FRQ] = 5;
 	regs[REG_ID_BKL] = 255;

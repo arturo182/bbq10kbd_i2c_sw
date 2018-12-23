@@ -65,8 +65,8 @@ static void key_cb(char key, enum key_state state)
 			do_int = true;
 		}
 
-		// TODO: Should we flush on full?
-		fifo_flush();
+		if (reg_is_bit_set(REG_ID_CFG, CFG_OVERFLOW_ON))
+			fifo_enqueue_force(item);
 	}
 
 	if (do_int) {
