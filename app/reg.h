@@ -26,7 +26,7 @@ enum reg_id
 #define CFG_NUMLOCK_INT		(1 << 3)
 #define CFG_KEY_INT			(1 << 4)
 #define CFG_PANIC_INT		(1 << 5)
-#define CFG_SPECIAL_KEYS	(1 << 6) // Should keys like shift and alt be sent too
+#define CFG_REPORT_MODS		(1 << 6) // Should Alt, Sym and Shifts be reported as well
 
 #define INT_OVERFLOW		(1 << 0)
 #define INT_CAPSLOCK		(1 << 1)

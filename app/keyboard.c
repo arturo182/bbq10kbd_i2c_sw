@@ -1,5 +1,6 @@
 #include "conf_app.h"
 #include "keyboard.h"
+#include "reg.h"
 #include "target.h"
 #include "time.h"
 #include "util.h"
@@ -87,16 +88,19 @@ static void transition_to(struct list_item * const p_item, const enum key_state 
 
 	switch (p_entry->mod) {
 		case MOD_ALT:
-			chr = 17;
+			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
+				chr = 17;
 			break;
 
 		case MOD_SHL:
 		case MOD_SHR:
-			chr = 18;
+			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
+				chr = 18;
 			break;
 
 		case MOD_SYM:
-			chr = 19;
+			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
+				chr = 19;
 			break;
 
 		default:
