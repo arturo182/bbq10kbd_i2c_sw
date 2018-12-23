@@ -27,6 +27,8 @@ enum reg_id
 #define CFG_KEY_INT			(1 << 4)
 #define CFG_PANIC_INT		(1 << 5)
 #define CFG_REPORT_MODS		(1 << 6) // Should Alt, Sym and Shifts be reported as well
+#define CFG_USE_MODS		(1 << 7) // Should Alt, Sym and Shifts modify the keys reported
+// CFG_STICKY_MODS // Pressing and releasing a mod affects next key pressed
 
 #define INT_OVERFLOW		(1 << 0)
 #define INT_CAPSLOCK		(1 << 1)
