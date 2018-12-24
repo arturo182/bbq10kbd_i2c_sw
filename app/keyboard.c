@@ -41,7 +41,7 @@ static const struct entry kbd_entries[][NUM_OF_COLS] =
 	{ { .mod = MOD_SYM }, { 'D', '5' },       { 'T', '(' },       { 'Y', ')'  }, { 'I', '-'  } },
 	{ { 'A', '*' },       { 'P', '@' },       { .mod = MOD_SHR }, { '\n', '|' }, { '\b'      } },
 	{ { .mod = MOD_ALT }, { 'X', '8' },       { 'V', '?' },       { 'B', '!'  }, { '$', '`'  } },
-	{ { ' ' },            { 'Z', '7' },       { 'C', '9' },       { 'N', ','  }, { 'M', '.'  } },
+	{ { ' ', '\t' },      { 'Z', '7' },       { 'C', '9' },       { 'N', ','  }, { 'M', '.'  } },
 	{ { '~', '0' },       { .mod = MOD_SHL }, { 'F', '6' },       { 'J', ';'  }, { 'K', '\'' } },
 };
 
@@ -131,6 +131,7 @@ static void next_item_state(struct list_item * const p_item, const bool pressed)
 			if (pressed) {
 				if (p_item->p_entry->mod != MOD_NONE)
 					self.mods[p_item->p_entry->mod] = true;
+
 				if (!self.capslock_changed && self.mods[MOD_SHR] && self.mods[MOD_ALT]) {
 					self.capslock = true;
 					self.capslock_changed = true;
