@@ -11,25 +11,25 @@ SRCS := \
 	SDK/common2/services/delay/sam0/cycle_counter.c \
 	SDK/sam0/drivers/port/port.c \
 	SDK/sam0/drivers/sercom/sercom.c \
-        SDK/sam0/drivers/sercom/sercom_interrupt.c \
+	SDK/sam0/drivers/sercom/sercom_interrupt.c \
 	SDK/sam0/drivers/sercom/usart/usart.c \
 	SDK/sam0/drivers/system/clock/clock_samd20/clock.c \
 	SDK/sam0/drivers/system/clock/clock_samd20/gclk.c \
 	SDK/sam0/drivers/sercom/i2c/i2c_samd20/i2c_slave.c \
-        SDK/sam0/drivers/sercom/i2c/i2c_samd20/i2c_slave_interrupt.c \
+	SDK/sam0/drivers/sercom/i2c/i2c_samd20/i2c_slave_interrupt.c \
 	SDK/sam0/drivers/system/pinmux/pinmux.c \
 	SDK/sam0/drivers/system/system.c \
 	SDK/sam0/drivers/tc/tc_sam_d_r_h/tc.c \
 	SDK/sam0/utils/cmsis/samd20/source/gcc/startup_samd20.c \
 	SDK/sam0/utils/cmsis/samd20/source/system_samd20.c \
 	SDK/sam0/utils/syscalls/gcc/syscalls.c \
-        targets/$(TARGET)/target.c \
-        app/backlight.c \
+	targets/$(TARGET)/target.c \
+	app/backlight.c \
 	app/fifo.c \
-        app/i2c.c \
+	app/i2c.c \
 	app/keyboard.c \
 	app/main.c \
-        app/reg.c \
+	app/reg.c \
 	app/time.c \
 
 INCS := \
@@ -56,13 +56,13 @@ INCS := \
 	SDK/sam0/utils/header_files \
 	SDK/sam0/utils/preprocessor \
 	SDK/thirdparty/CMSIS/Include \
-        targets/$(TARGET) \
-        targets \
-        app/config \
+	targets/$(TARGET) \
+	targets \
+	app/config \
 	app
 
 DEFS := \
-        I2C_SLAVE_CALLBACK_MODE=true \
+	I2C_SLAVE_CALLBACK_MODE=true \
 	__SAMD20E16__ \
 	CYCLE_MODE
 
@@ -70,13 +70,13 @@ LIBS := \
 
 LDSCRIPT := SDK/sam0/utils/linker_scripts/samd20/gcc/samd20e16_flash.ld
 
-OBJS := $(patsubst %.c,out/obj/%.c.o, $(filter %.c, $(SRCS)))
+OBJS := $(patsubst %.c,out/$(TARGET)/obj/%.c.o, $(filter %.c, $(SRCS)))
 DEPS := $(patsubst %.o,%.d,$(OBJS))
 
 CFLAGS := \
 	-mcpu=cortex-m0plus -mthumb \
-        -std=gnu99 -Os -g -Wall -Wextra \
-        -Wno-missing-field-initializers -Wno-unused-parameter -Wno-expansion-to-defined \
+	-std=gnu99 -Os -g -Wall -Wextra \
+	-Wno-missing-field-initializers -Wno-unused-parameter -Wno-expansion-to-defined \
 	-ffunction-sections -fdata-sections -fomit-frame-pointer \
 	$(addprefix -D, $(DEFS)) \
 	$(addprefix -I, $(INCS))
@@ -87,16 +87,16 @@ LDFLAGS := \
 	-T$(LDSCRIPT) \
 	$(LIBS)
 
-all: out/app.bin
+all: out/$(TARGET)/app.bin
 .PHONY: all
 
-out/obj/%.c.o: %.c
+out/$(TARGET)/obj/%.c.o: %.c
 	@echo "CC $<"
 	@mkdir -p $(dir $@)
 	@$(CC) -MM -MF $(subst .o,.d,$@) -MP -MT "$@ $(subst .o,.d,$@)" $(CFLAGS) $<
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-out/app.elf: $(OBJS)
+out/$(TARGET)/app.elf: $(OBJS)
 	@echo "LD $@"
 	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) -Xlinker -Map=$@.map
 	@$(SIZE) $@
@@ -105,11 +105,11 @@ out/app.elf: $(OBJS)
 	@$(OBJCOPY) -O binary $< $@
 
 clean:
-	@echo "Cleaning"
+	@echo "Removing the out directory"
 	@rm -rf out/
 .PHONY: clean
 
-flash: out/app.bin
+flash: out/$(TARGET)/app.bin
 	@echo -e "reset halt\nprogram $< verify\nreset run\nexit\n" | nc localhost 4444
 .PHONY: flash
 
