@@ -6,7 +6,9 @@ LD      := $(CROSS_COMPILE)ld
 OBJCOPY := $(CROSS_COMPILE)objcopy
 SIZE    := $(CROSS_COMPILE)size
 
-SRCS := \
+include targets/$(TARGET)/target.mk
+
+SRCS += \
 	SDK/common/utils/interrupt/interrupt_sam_nvic.c \
 	SDK/common2/services/delay/sam0/cycle_counter.c \
 	SDK/sam0/drivers/port/port.c \
@@ -32,7 +34,7 @@ SRCS := \
 	app/reg.c \
 	app/time.c \
 
-INCS := \
+INCS += \
 	SDK/common/utils \
 	SDK/common2/services \
 	SDK/common2/services/delay \
@@ -61,17 +63,15 @@ INCS := \
 	app/config \
 	app
 
-DEFS := \
+DEFS += \
 	I2C_SLAVE_CALLBACK_MODE=true \
-	__SAMD20E16__ \
 	CYCLE_MODE
 
-LIBS := \
-
-LDSCRIPT := SDK/sam0/utils/linker_scripts/samd20/gcc/samd20e16_flash.ld
+LIBS += \
 
 OBJS := $(patsubst %.c,out/$(TARGET)/obj/%.c.o, $(filter %.c, $(SRCS)))
 DEPS := $(patsubst %.o,%.d,$(OBJS))
+LDSCRIPT := SDK/sam0/utils/linker_scripts/samd20/gcc/$(LD_FILE)
 
 CFLAGS := \
 	-mcpu=cortex-m0plus -mthumb \
@@ -120,6 +120,13 @@ daplink:
 	-f target/at91samdXX.cfg \
 	-c "init ; reset halt"
 .PHONY: daplink
+
+stlink:
+	@openocd \
+	-f interface/stlink-v2.cfg \
+	-f target/at91samdXX.cfg \
+	-c "init ; reset halt"
+.PHONY: stlink
 
 jlink:
 	@openocd \
