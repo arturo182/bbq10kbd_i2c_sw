@@ -30,9 +30,9 @@ const uint8_t btn_pins[NUM_OF_BTNS] =
 	PIN_PA04, // JOY_RIGHT
 	PIN_PA06, // JOY_CENTER
 	PIN_PA00, // BTN_LEFT1
-	PIN_PA02, // BTN_RIGHT1
+	PIN_PA03, // BTN_RIGHT1
 	PIN_PA01, // BTN_LEFT2
-	PIN_PA03, // BTN_RIGHT2
+	PIN_PA02, // BTN_RIGHT2
 };
 
 const uint8_t int_pin = PIN_PB22;
