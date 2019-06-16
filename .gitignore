@@ -4,3 +4,5 @@ out
 *.files
 *.includes
 *.creator
+*.cflags
+*.cxxflags
