@@ -90,7 +90,7 @@ static void lock_cb(bool caps_changed, bool num_changed)
 		do_int = true;
 	}
 
-#if DEBUG
+#ifdef DEBUG
 	printf("lock, caps_c: %d, caps: %d, num_c: %d, num: %d\r\n",
 		   caps_changed, keyboard_get_capslock(),
 		   num_changed, keyboard_get_numlock());
