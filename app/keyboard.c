@@ -53,8 +53,12 @@ static const struct entry btn_entries[NUM_OF_BTNS] =
 	{ KEY_JOY_LEFT   },
 	{ KEY_JOY_RIGHT  },
 	{ KEY_JOY_CENTER },
-	{ KEY_BTN_LEFT   },
-	{ KEY_BTN_RIGHT  },
+	{ KEY_BTN_LEFT1  },
+	{ KEY_BTN_RIGHT1 },
+#if NUM_OF_BTNS > 7
+	{ KEY_BTN_LEFT2  },
+	{ KEY_BTN_RIGHT2 },
+#endif
 };
 #endif
 
