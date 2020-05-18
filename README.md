@@ -25,6 +25,7 @@ Here are libraries that allow interaction with the boards running this software:
 
 - [Arduino](https://github.com/arturo182/arduino_bbq10kbd)
 - [CircuitPython](https://github.com/arturo182/arturo182_CircuitPython_BBQ10Keyboard)
+- [Rust (Embedded-HAL)](https://crates.io/crates/bbq10kbd)
 
 ## Protocol
 
