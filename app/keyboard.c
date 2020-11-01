@@ -93,18 +93,22 @@ static void transition_to(struct list_item * const p_item, const enum key_state 
 	switch (p_entry->mod) {
 		case MOD_ALT:
 			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
-				chr = 17;
+				chr = KEY_MOD_ALT;
 			break;
 
 		case MOD_SHL:
+			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
+				chr = KEY_MOD_SHL;
+			break;
+
 		case MOD_SHR:
 			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
-				chr = 18;
+				chr = KEY_MOD_SHR;
 			break;
 
 		case MOD_SYM:
 			if (reg_is_bit_set(REG_ID_CFG, CFG_REPORT_MODS))
-				chr = 19;
+				chr = KEY_MOD_SYM;
 			break;
 
 		default:

@@ -21,8 +21,14 @@ enum key_state
 // 0x08 - BACKSPACE
 // 0x09 - TAB
 // 0x0A - NEW LINE
+// 0x0D - CARRIAGE RETURN
 #define KEY_BTN_LEFT2	0x11
 #define KEY_BTN_RIGHT2	0x12
+
+#define KEY_MOD_ALT		0x1A
+#define KEY_MOD_SHL		0x1B
+#define KEY_MOD_SHR		0x1C
+#define KEY_MOD_SYM		0x1D
 
 typedef void (*key_callback)(char, enum key_state);
 typedef void (*lock_callback)(bool, bool);

@@ -119,3 +119,17 @@ Possible key states:
 | 1      | Pressed                 |
 | 2      | Pressed and Held        |
 | 3      | Released                |
+
+## Version history
+
+	v0.3:
+	- Change values sent for mods if CFG_REPORT_MODS is enabled so they don't overlap the buttons
+	- Send different value for left and right shifts if CFG_REPORT_MODS is enabled
+	- Change FIFO size to 31 so it's reported correctly in REG_KEY if FIFO is full
+
+	v0.2:
+	- Add support for KEY_LEFT2 and KEY_RIGHT2
+	- Add the Keyboard FeatherWing target
+
+	v0.1:
+	- Initial release
